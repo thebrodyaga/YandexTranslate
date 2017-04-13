@@ -22,7 +22,7 @@
             >
 
             <TextView
-                android:id="@+id/lang1"
+                android:id="@+id/langIn"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:textSize="20sp"
@@ -30,6 +30,7 @@
                 android:gravity="center"
                 android:maxLines="1"
                 android:layout_toLeftOf="@+id/imageButton"
+                android:clickable="true"
                 />
 
             <ImageButton
@@ -47,10 +48,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:textSize="20sp"
-                android:id="@+id/lang2"
+                android:id="@+id/langOut"
                 android:gravity="center"
                 android:maxLines="1"
-                android:layout_toRightOf="@+id/imageButton"/>
+                android:layout_toRightOf="@+id/imageButton"
+                android:clickable="true"/>
 
         </RelativeLayout>
     </android.support.v7.widget.Toolbar>

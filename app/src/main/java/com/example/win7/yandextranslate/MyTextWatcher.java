@@ -13,7 +13,7 @@ import retrofit2.Response;
 
 public class MyTextWatcher implements TextWatcher {
 
-    String key = "trnsl.1.1.20170407T160021Z.695b525a130b6a4e.63537242677666d108ccc81fe6364f3d8f5eab18";
+    private String key = "trnsl.1.1.20170407T160021Z.695b525a130b6a4e.63537242677666d108ccc81fe6364f3d8f5eab18";
 
     private EditText inText;
     private TextView outText;
