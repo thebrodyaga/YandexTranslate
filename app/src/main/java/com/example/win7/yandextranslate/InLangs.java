@@ -1,14 +1,19 @@
 package com.example.win7.yandextranslate;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
 
-public class InLangs extends AppCompatActivity {
+public class InLangs extends AppCompatActivity implements AdapterView.OnItemClickListener {
 
+    /*Активити выбора языка текста*/
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -28,6 +33,7 @@ public class InLangs extends AppCompatActivity {
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this,
                 android.R.layout.simple_list_item_1, langs);
         listView.setAdapter(adapter);
+        listView.setOnItemClickListener(this);
     }
 
     @Override
@@ -37,5 +43,12 @@ public class InLangs extends AppCompatActivity {
             finish(); // close this activity and return to preview activity (if there is any)
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        String inLang = ((TextView) view).getText().toString();
+        setResult(RESULT_OK , new Intent().putExtra("inLang", inLang));
+        finish();
     }
 }

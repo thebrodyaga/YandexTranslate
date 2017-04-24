@@ -9,43 +9,40 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 
+import com.example.win7.yandextranslate.DB.DBHelper;
+
 import java.util.ArrayList;
 import java.util.List;
-
-import com.example.win7.yandextranslate.R;
-import com.example.win7.yandextranslate.BaseFragment;
-import com.example.win7.yandextranslate.HistoryFragment;
-import com.example.win7.yandextranslate.FavoritesFragment;
 
 public class MainActivity extends AppCompatActivity {
 
     private Toolbar toolbar;
     private TabLayout tabLayout;
     private ViewPager viewPager;
+    public static DBHelper dbHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        /*toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);*/
-
-        //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
         viewPager = (ViewPager) findViewById(R.id.viewpager);
         setupViewPager(viewPager);
+        viewPager.setOffscreenPageLimit(0);
 
         tabLayout = (TabLayout) findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(viewPager);
+        dbHelper = new DBHelper(this);
+        DBHelper.db = dbHelper.getWritableDatabase();
     }
 
     private void setupViewPager(ViewPager viewPager) {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
-        adapter.addFragment(new BaseFragment(), "ONE");
-        adapter.addFragment(new HistoryFragment(), "TWO");
-        adapter.addFragment(new FavoritesFragment(), "THREE");
+        adapter.addFragment(new BaseFragment(), "Перевод");
+        adapter.addFragment(new HistoryFragment(), "История");
+        adapter.addFragment(new FavoritesFragment(), "Избранное");
         viewPager.setAdapter(adapter);
+
     }
 
     class ViewPagerAdapter extends FragmentPagerAdapter {
@@ -75,5 +72,11 @@ public class MainActivity extends AppCompatActivity {
         public CharSequence getPageTitle(int position) {
             return mFragmentTitleList.get(position);
         }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        dbHelper.close();
     }
 }
